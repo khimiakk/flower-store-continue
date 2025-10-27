@@ -1,20 +1,19 @@
 package ucu.apps.flower_store_continue.delivery;
 
-import ucu.apps.flower_store_continue.store.items.Item;
-
 import java.util.List;
+
+import ucu.apps.flower_store_continue.store.flower.Item;
 
 public class DHLDeliveryStrategy implements Delivery{
 
-    private final double DELIVERY_PRICE_MULTIPLIER = 0.1;
+    private static final double MULTIPLIER = 0.10;
 
     @Override
     public double deliver(List<Item> items) {
         double sum = 0.0;
-        for (Item item : items) {
-            sum += item.price();
-        }
-        return DELIVERY_PRICE_MULTIPLIER * sum;
+        for (Item item : items) sum += item.getPrice();
+        return sum * MULTIPLIER;
     }
+
 }
 

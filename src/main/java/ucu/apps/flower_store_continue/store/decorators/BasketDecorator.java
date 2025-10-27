@@ -1,22 +1,20 @@
 package ucu.apps.flower_store_continue.store.decorators;
 
-import lombok.ToString;
-import ucu.apps.flower_store_continue.store.items.Item;;
+import ucu.apps.flower_store_continue.store.flower.Item;
 
-@ToString
-public class BasketDecorator extends Decorator {
-    private static final double BASKET_PRICE = 4;
-    private Item item;
+public class BasketDecorator extends ItemDecorator {
 
     public BasketDecorator(Item item) {
-        this.item = item;
+        super(item);
     }
 
-    public double price() {
-        return BASKET_PRICE + item.price();
-    }
-
+    @Override
     public String getDescription() {
-        return item.getDescription() + "Wrapped in basket decorator";
+        return super.getDescription() + " in basket.";
+    }
+
+    @Override
+    public double getPrice() {
+        return 4 + item.getPrice();
     }
 }

@@ -1,22 +1,20 @@
 package ucu.apps.flower_store_continue.store.decorators;
 
-import ucu.apps.flower_store_continue.store.items.Item;
+import ucu.apps.flower_store_continue.store.flower.Item;
 
-public class RibbonDecorator extends Decorator{
-
-    private final Item item;
+public class RibbonDecorator extends ItemDecorator {
 
     public RibbonDecorator(Item item) {
-        this.item = item;
+        super(item);
     }
 
     @Override
     public String getDescription() {
-        return item.getDescription() + " + added ribbon.";
+        return super.getDescription() + " with ribbon.";
     }
 
     @Override
-    public double price() {
-        return item.price() + 40.0;
+    public double getPrice() {
+        return 40 + item.getPrice();
     }
 }

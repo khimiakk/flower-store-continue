@@ -1,9 +1,6 @@
-package ucu.apps.flower_store_continue.store.items;
+package ucu.apps.flower_store_continue.store.flower;
 
 import java.util.List;
-
-import ucu.apps.flower_store_continue.store.items.properties.FlowerType;
-
 import java.util.ArrayList;
 
 public class FlowerBucket {
@@ -30,4 +27,21 @@ public class FlowerBucket {
         }
         return allTypes;
     }
+
+    public boolean searchFlower(Flower sampleFlower) {
+        for (FlowerPack pack: flowerPacks) {
+            Flower flower = pack.getFlower();
+            if (flower.equals(sampleFlower)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void addFlowers(List<Flower> flowers, int amountEach) {
+        for (Flower flower : flowers) {
+            flowerPacks.add(new FlowerPack(flower, amountEach));
+        }
+    }
+
 }

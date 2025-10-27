@@ -2,15 +2,31 @@ package ucu.apps.flower_store_continue.store;
 
 import ucu.apps.flower_store_continue.delivery.Delivery;
 import ucu.apps.flower_store_continue.payment.Payment;
-import ucu.apps.flower_store_continue.store.items.Item;
+import ucu.apps.flower_store_continue.store.flower.Item;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Order {
+    private List<Item> items = new ArrayList<>();
+    private Payment payment;
+    private Delivery delivery;
 
-    LinkedList<Item> items;
-    Payment payment;
-    Delivery delivery;
+    public void addItem(Item item) {
+        items.add(item);
+    }
+
+    public void removeItem(Item item) {
+        items.remove(item);
+    }
+
+    public double calculateTotalPrice() {
+        double total = 0;
+        for (Item item : items) {
+            total += item.getPrice();
+        }
+        return total;
+    }
 
     public void setPaymentStrategy(Payment payment) {
         this.payment = payment;
@@ -20,30 +36,16 @@ public class Order {
         this.delivery = delivery;
     }
 
-    public double calculateTotalPrice() {
-        double price = 0.0;
-        for (Item item : items) {
-            price += item.price();
+    public boolean processOrder() {
+        if (payment == null) {
+            return false;
         }
-        return price;
+        double total = calculateTotalPrice();
+        double deliveryCost = (delivery != null) ? delivery.deliver(items) : 0.0;
+        return payment.pay(total + deliveryCost);
     }
 
-    public boolean processOrder() {;
-        payment.pay(calculateTotalPrice() + delivery.deliver(items));
-        return true;
-    }
-
-    public void addItem(Item item) {
-        items.add(item);
-    }
-
-    public boolean removeItem(Item item) {
-        for (Item currentItem : items) {
-            if (currentItem.equals(item)) {
-                items.removeFirstOccurrence(item);
-                return true;
-            }
-        }
-        return false;
+    public List<Item> getItems() {
+        return new ArrayList<>(items);
     }
 }
