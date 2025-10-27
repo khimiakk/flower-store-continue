@@ -9,12 +9,13 @@ import ucu.apps.flowerstorecontinue.payment.PayPalPaymentStrategy;
 import ucu.apps.flowerstorecontinue.payment.Payment;
 
 class PaymentTest {
-    private Payment cardProcessor;
-    private Payment onlinePaymentProcessor;
 
     private static final double AMOUNT_LARGE = 250.0;
     private static final double AMOUNT_SMALL = 75.0;
     private static final double AMOUNT_ZERO  = 0.0;
+
+    private Payment cardProcessor;
+    private Payment onlinePaymentProcessor;
 
     @BeforeEach
     void setUp() {
@@ -25,7 +26,7 @@ class PaymentTest {
     @Test
     void testCreditCardPayment() {
         Assertions.assertTrue(cardProcessor.pay(AMOUNT_LARGE));
-        Assertions.assertTrue(cardProcessor.pay(0.0));
+        Assertions.assertTrue(cardProcessor.pay(AMOUNT_ZERO));
     }
 
     @Test
@@ -37,5 +38,4 @@ class PaymentTest {
     void zeroAmountStillReturnsTrue() {
         Assertions.assertTrue(onlinePaymentProcessor.pay(AMOUNT_ZERO));
     }
-
 }

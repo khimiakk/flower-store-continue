@@ -1,6 +1,7 @@
 package ucu.apps.flowerstorecontinue;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 
 import ucu.apps.flowerstorecontinue.delivery.DHLDeliveryStrategy;
 import ucu.apps.flowerstorecontinue.delivery.PostDeliveryStrategy;
@@ -9,7 +10,6 @@ import ucu.apps.flowerstorecontinue.store.flower.FlowerColor;
 import ucu.apps.flowerstorecontinue.store.flower.FlowerType;
 import ucu.apps.flowerstorecontinue.store.flower.Item;
 
-import org.junit.jupiter.api.Assertions;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -43,9 +43,22 @@ public class DeliveryTest {
 
     @Test
     public void postFivePercentOfSum() {
-        Item a = new Flower(EIGHTY, FlowerColor.GREEN, EIGHT, FlowerType.CACTUS);
-        Item b = new Flower(TWENTY, FlowerColor.WHITE, THREE, FlowerType.ROMASHKA);
-        double cost = new PostDeliveryStrategy().deliver(List.of(a, b));
+        Item a = new Flower(
+            EIGHTY,
+            FlowerColor.GREEN,
+            EIGHT,
+            FlowerType.CACTUS
+        );
+        Item b = new Flower(
+            TWENTY,
+            FlowerColor.WHITE,
+            THREE,
+            FlowerType.ROMASHKA
+        );
+
+        double cost = new PostDeliveryStrategy()
+            .deliver(List.of(a, b));
+
         Assertions.assertEquals(FIVE, cost, DELTA);
     }
 }
